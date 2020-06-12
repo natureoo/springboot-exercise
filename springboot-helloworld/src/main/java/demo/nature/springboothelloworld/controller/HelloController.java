@@ -32,6 +32,7 @@ public class HelloController {
 
     @RequestMapping("config")
     public String config(){
+        System.out.println("热部署插件devtools测试----------");
         return payUrl +"-----" +payInterval + ">>  " + payConfig.getUrl() + "-----"+payConfig.getInterval();
     }
 }
