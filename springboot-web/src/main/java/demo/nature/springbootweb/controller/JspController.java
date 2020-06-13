@@ -1,8 +1,8 @@
 package demo.nature.springbootweb.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author nature
@@ -13,9 +13,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("jsp")
 public class JspController {
 
-    @RequestMapping("index")
-    public String index(Model model){
-        model.addAttribute("name", "JSP");
-        return "index";
+    @RequestMapping("config")
+    @ResponseBody
+    public String config(){
+        return "config";
+    }
+
+    @RequestMapping("login")
+    @ResponseBody
+    public String login(){
+        System.out.println("in login");
+        return "login";
     }
 }
