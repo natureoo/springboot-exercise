@@ -18,7 +18,7 @@ import java.io.IOException;
  * after LoginFilter doFilter
  */
 
-@WebFilter(urlPatterns="/jsp/login") //urlPatterns not working
+@WebFilter(urlPatterns="/jsp/login")
 //@WebFilter
 public class LoginFilter implements Filter {
 

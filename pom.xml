@@ -12,5 +12,6 @@
     <modules>
         <module>springboot-helloworld</module>
         <module>springboot-java</module>
+        <module>springboot-web</module>
     </modules>
 </project>
