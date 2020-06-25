@@ -13,5 +13,6 @@
         <module>springboot-helloworld</module>
         <module>springboot-java</module>
         <module>springboot-web</module>
+        <module>springboot-mybatis</module>
     </modules>
 </project>
