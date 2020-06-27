@@ -14,5 +14,6 @@
         <module>springboot-java</module>
         <module>springboot-web</module>
         <module>springboot-mybatis</module>
+        <module>springboot-jpa</module>
     </modules>
 </project>
