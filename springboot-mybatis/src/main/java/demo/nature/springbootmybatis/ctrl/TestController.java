@@ -1,8 +1,11 @@
 package demo.nature.springbootmybatis.ctrl;
 
+import demo.nature.springbootmybatis.entity.Article;
 import demo.nature.springbootmybatis.entity.AuthUser;
+import demo.nature.springbootmybatis.service.ArticleService;
 import demo.nature.springbootmybatis.service.AuthUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,6 +23,9 @@ public class TestController {
 
     @Autowired
     private AuthUserService authUserService;
+
+    @Autowired
+    private ArticleService articleService;
 
     @RequestMapping(value = "add")
     public void addAuthUser(){
@@ -71,4 +77,10 @@ public class TestController {
         authUsers.add(authUser2);
         return authUsers;
     }
+
+    @RequestMapping(value = "art/{id}")
+    public Article getArticle(@PathVariable("id") int id ){
+        return articleService.getArticle(id);
+    }
+
 }
