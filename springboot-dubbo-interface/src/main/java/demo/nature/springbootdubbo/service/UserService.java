@@ -1,4 +1,4 @@
-package demo.nature.springbootdubbo;
+package demo.nature.springbootdubbo.service;
 
 /**
  * @author nature

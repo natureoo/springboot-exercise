@@ -1,7 +1,7 @@
 package demo.nature.springbootdubboprovider.service;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import demo.nature.springbootdubbo.UserService;
+import demo.nature.springbootdubbo.service.UserService;
 import org.springframework.stereotype.Component;
 
 /**
