@@ -19,5 +19,6 @@
         <module>springboot-dubbo-interface</module>
         <module>springboot-dubbo-provider</module>
         <module>springboot-dubbo-consumer</module>
+        <module>springboot-session</module>
     </modules>
 </project>
