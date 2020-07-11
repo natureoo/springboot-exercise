@@ -20,5 +20,6 @@
         <module>springboot-dubbo-provider</module>
         <module>springboot-dubbo-consumer</module>
         <module>springboot-session</module>
+        <module>springboot-security</module>
     </modules>
 </project>
