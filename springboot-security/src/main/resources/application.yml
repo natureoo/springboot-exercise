@@ -6,3 +6,16 @@ spring:
       name: user # 账号
       password: user # 密码
       roles: ADMIN # 拥有角色
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 12345678
+    url: jdbc:mysql://localhost:3306/springboot_security?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true
+
+  jpa:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+    show-sql: true

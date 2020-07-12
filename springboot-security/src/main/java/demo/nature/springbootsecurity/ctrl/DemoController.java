@@ -33,13 +33,15 @@ public class DemoController {
         return "我是首页";
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin")
     public String admin() {
         return "我是管理员";
     }
 
-    @PreAuthorize("hasRole('ROLE_NORMAL')")
+    @PreAuthorize("hasRole('NORMAL')")
+//    @PreAuthorize("hasRole('ROLE_NORMAL')")
     @GetMapping("/normal")
     public String normal() {
         return "我是普通用户";
