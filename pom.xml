@@ -21,5 +21,7 @@
         <module>springboot-dubbo-consumer</module>
         <module>springboot-session</module>
         <module>springboot-security</module>
+        <module>springboot-security-oauth2</module>
+        <module>oauth2-password</module>
     </modules>
 </project>
