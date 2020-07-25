@@ -22,6 +22,7 @@
         <module>springboot-session</module>
         <module>springboot-security</module>
         <module>springboot-security-oauth2</module>
-        <module>oauth2-password</module>
+        <module>springboot-rxjava</module>
+        <module>springboot-signature-server</module>
     </modules>
 </project>
