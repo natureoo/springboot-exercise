@@ -12,9 +12,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class RequestHolder {
+public class RequestHolder<T> {
 
-    private RequestPayload request;
+    private RequestPayload<T> request;
 
     private String signature;
 }

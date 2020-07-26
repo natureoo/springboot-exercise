@@ -1,5 +1,7 @@
 package demo.nature.springbootsignatureserver.util;
 
+import org.springframework.stereotype.Component;
+
 import java.io.IOException;
 import java.security.*;
 import java.security.cert.Certificate;
@@ -15,6 +17,7 @@ import java.util.Base64;
  * 2、在加载证书文件的时候，keyStore.load(in, storePass.toCharArray());storePass为获取私钥文件的密码，即仓库密码，我们这里为abc@2018
  * 对于类型为PKCS12的密钥库, keypass == storepass
  */
+@Component
 public class SignatureTool {
 
     private String keyPass = "123456";
@@ -31,9 +34,16 @@ public class SignatureTool {
 
     private String publicKeyAlias = "receiverKeyPair";
 
-    private SignatureTool(){}
+    private PrivateKey privateKey;
 
-    public static SignatureTool getInstance(){
+    private PublicKey publicKey;
+
+    private SignatureTool() throws UnrecoverableKeyException, CertificateException, NoSuchAlgorithmException, KeyStoreException, IOException {
+        privateKey = getPrivateKey();
+        publicKey = getPublicKey();
+    }
+
+    public static SignatureTool getInstance() throws UnrecoverableKeyException, CertificateException, NoSuchAlgorithmException, KeyStoreException, IOException {
         if(tool == null)
             tool = new SignatureTool();
         return tool;
@@ -57,7 +67,7 @@ public class SignatureTool {
 
     public String sign(String message) throws NoSuchAlgorithmException, IOException, SignatureException, UnrecoverableKeyException, CertificateException, KeyStoreException, InvalidKeyException {
         Signature signature = Signature.getInstance("SHA256withRSA");
-        signature.initSign(getPrivateKey());
+        signature.initSign(privateKey);
         byte[] messageBytes = message.getBytes("UTF-8");
         signature.update(messageBytes);
         byte[] signatureBytes = signature.sign();
@@ -65,12 +75,12 @@ public class SignatureTool {
         return signatureMsg;
     }
 
-    public boolean verify(String message, String signatureMsg) throws NoSuchAlgorithmException, IOException, SignatureException, CertificateException, KeyStoreException, InvalidKeyException {
+    public boolean verify(String message, String expectedSignature) throws NoSuchAlgorithmException, IOException, SignatureException, CertificateException, KeyStoreException, InvalidKeyException {
         Signature signature = Signature.getInstance("SHA256withRSA");
-        signature.initVerify(getPublicKey());
+        signature.initVerify(publicKey);
         byte[] messageBytes = message.getBytes("UTF-8");
         signature.update(messageBytes);
-        byte[] signatureBytes = Base64.getDecoder().decode(signatureMsg);
+        byte[] signatureBytes = Base64.getDecoder().decode(expectedSignature);
         boolean flags = signature.verify(signatureBytes);
         return flags;
     }

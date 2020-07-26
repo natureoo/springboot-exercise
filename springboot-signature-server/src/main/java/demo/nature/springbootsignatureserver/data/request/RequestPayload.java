@@ -12,9 +12,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class RequestPayload {
+public class RequestPayload<T> {
 
-    private RequestPayload header;
+    private RequestHeader header;
 
-    private RequestData data;
+    private T data;
 }
