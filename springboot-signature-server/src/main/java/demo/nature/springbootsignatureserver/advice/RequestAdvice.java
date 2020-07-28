@@ -13,7 +13,9 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdviceAdapter;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.security.InvalidKeyException;
 import java.security.KeyStoreException;
@@ -65,6 +67,26 @@ public class RequestAdvice extends RequestBodyAdviceAdapter {
             e.printStackTrace();
         }
         log.info("signature verify flags[{}]", flags);
-        return inputMessage;
+
+        InputStream rawInputStream = new ByteArrayInputStream(body);
+        return new HttpInputMessage() {
+            @Override
+            public HttpHeaders getHeaders() {
+                return inputMessage.getHeaders();
+            }
+
+            @Override
+            public InputStream getBody() throws IOException {
+                return rawInputStream;
+            }
+        };
+//        return inputMessage;
+    }
+
+    @Override
+    public Object afterBodyRead(Object body, HttpInputMessage inputMessage, MethodParameter parameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
+        log.info("afterBodyRead body [{}]", body);
+        RequestHolder requestHolder = (RequestHolder)body;
+        return body;
     }
 }

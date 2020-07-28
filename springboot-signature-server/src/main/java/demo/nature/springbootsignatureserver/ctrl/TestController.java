@@ -20,7 +20,8 @@ public class TestController {
 
     @RequestMapping(value = "contact")
     public void modifyContact(@RequestBody RequestHolder<Contact> requestContact){
+        log.info("requestContact [{}]", requestContact);
         Contact contact = requestContact.getRequest().getData();
-        log.info("contact[{}]", contact);
+        log.info("contact [{}]", contact);
     }
 }
