@@ -8,3 +8,15 @@ feign:
 myfeignclient:
   ribbon:
     listOfServers: http://localhost:8085
+
+logging:
+  level:
+    demo:
+      nature:
+        springbootsignatureclient:
+          feign:
+            MyFeignClient: debug
+
+
+
+
