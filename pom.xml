@@ -24,5 +24,6 @@
         <module>springboot-security-oauth2</module>
         <module>springboot-rxjava</module>
         <module>springboot-signature-server</module>
+        <module>springboot-signature-common</module>
     </modules>
 </project>

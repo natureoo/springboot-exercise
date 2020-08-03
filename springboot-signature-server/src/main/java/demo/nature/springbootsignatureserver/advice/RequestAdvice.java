@@ -1,11 +1,10 @@
 package demo.nature.springbootsignatureserver.advice;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import demo.nature.springbootsignatureserver.data.request.RequestHolder;
-import demo.nature.springbootsignatureserver.data.request.RequestPayload;
-import demo.nature.springbootsignatureserver.util.SignatureTool;
+import demo.nature.data.request.RequestHolder;
+import demo.nature.data.request.RequestPayload;
+import demo.nature.util.SignatureTool;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpInputMessage;
@@ -17,10 +16,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
-import java.security.InvalidKeyException;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.SignatureException;
+import java.security.*;
 import java.security.cert.CertificateException;
 
 /**
@@ -32,8 +28,7 @@ import java.security.cert.CertificateException;
 @Slf4j
 public class RequestAdvice extends RequestBodyAdviceAdapter {
 
-    @Autowired
-    private SignatureTool signatureTool;
+
 
     @Override
     public boolean supports(MethodParameter methodParameter, Type type, Class<? extends HttpMessageConverter<?>> aClass) {
@@ -54,7 +49,7 @@ public class RequestAdvice extends RequestBodyAdviceAdapter {
         String payLoad = objectMapper.writeValueAsString(request);
         boolean flags = false;
         try {
-            flags = signatureTool.verify(payLoad, expectedSignature);
+            flags = SignatureTool.getInstance().verify(payLoad, expectedSignature);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (SignatureException e) {
@@ -64,6 +59,8 @@ public class RequestAdvice extends RequestBodyAdviceAdapter {
         } catch (KeyStoreException e) {
             e.printStackTrace();
         } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (UnrecoverableKeyException e) {
             e.printStackTrace();
         }
         log.info("signature verify flags[{}]", flags);

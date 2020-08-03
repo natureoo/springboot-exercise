@@ -1,6 +1,4 @@
-package demo.nature.springbootsignatureserver.util;
-
-import org.springframework.stereotype.Component;
+package demo.nature.util;
 
 import java.io.IOException;
 import java.security.*;
@@ -17,7 +15,6 @@ import java.util.Base64;
  * 2、在加载证书文件的时候，keyStore.load(in, storePass.toCharArray());storePass为获取私钥文件的密码，即仓库密码，我们这里为abc@2018
  * 对于类型为PKCS12的密钥库, keypass == storepass
  */
-@Component
 public class SignatureTool {
 
     private String keyPass = "123456";

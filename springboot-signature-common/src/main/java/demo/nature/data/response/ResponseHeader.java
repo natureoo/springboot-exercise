@@ -1,4 +1,4 @@
-package demo.nature.springbootsignatureserver.data.response;
+package demo.nature.data.response;
 
 /**
  * @author nature

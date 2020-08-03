@@ -1,40 +1,33 @@
-package demo.nature.springbootsignatureserver;
+package demo.nature.springbootsignatureclient;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import demo.nature.data.request.Contact;
 import demo.nature.data.request.RequestHeader;
 import demo.nature.data.request.RequestHolder;
 import demo.nature.data.request.RequestPayload;
+import demo.nature.springbootsignatureclient.feign.MyFeignClient;
 import demo.nature.util.SignatureTool;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
 
 import java.io.IOException;
 import java.security.*;
 import java.security.cert.CertificateException;
 import java.time.LocalDateTime;
 
-@SpringBootTest(classes = SpringbootSignatureServerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = SpringbootSignatureClientApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
-class SpringbootSignatureServerApplicationTests {
+class SpringbootSignatureClientApplicationTests {
 
-    /**
-     * @LocalServerPort 提供了 @Value("${local.server.port}") 的代替
-     */
-    @LocalServerPort
-    private int port;
 
     @Autowired
-    private TestRestTemplate testRestTemplate;
+    private MyFeignClient myFeignClient;
 
 
     @Test
     void testModifyContact() throws IOException, CertificateException, UnrecoverableKeyException, NoSuchAlgorithmException, KeyStoreException, SignatureException, InvalidKeyException {
-        String url = "http://localhost:"+port + "/test/contact";
 
         RequestHolder<Contact> requestHolder = new RequestHolder<>();
         RequestPayload<Contact> requestPayload = new RequestPayload<>();
@@ -56,10 +49,8 @@ class SpringbootSignatureServerApplicationTests {
         String signature = SignatureTool.getInstance().sign(payload);
         requestHolder.setSignature(signature);
 
-        String result = testRestTemplate.postForObject(url, requestHolder, String.class);
-        log.info("post result[{}]", result);
+        Contact result = myFeignClient.modifyContact(requestHolder);
+        log.info("get result[{}]", result);
     }
-
-
 
 }

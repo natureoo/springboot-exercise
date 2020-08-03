@@ -1,4 +1,4 @@
-package demo.nature.springbootsignatureserver.data.request;
+package demo.nature.data.request;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

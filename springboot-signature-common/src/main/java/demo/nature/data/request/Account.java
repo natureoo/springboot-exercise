@@ -1,4 +1,4 @@
-package demo.nature.springbootsignatureserver.data.request;
+package demo.nature.data.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
