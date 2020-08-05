@@ -17,4 +17,5 @@ public interface MyFeignClient {
 
     @RequestMapping(method = RequestMethod.POST, value = "/test/contact")
     public Contact modifyContact(@RequestBody RequestHolder<Contact> requestContact);
+//    public Contact modifyContact(@RequestBody RequestPayload<Contact> requestContact);
 }

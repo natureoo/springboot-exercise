@@ -1,12 +1,10 @@
 package demo.nature.springbootsignatureclient;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import demo.nature.data.request.Contact;
 import demo.nature.data.request.RequestHeader;
 import demo.nature.data.request.RequestHolder;
 import demo.nature.data.request.RequestPayload;
 import demo.nature.springbootsignatureclient.feign.MyFeignClient;
-import demo.nature.util.SignatureTool;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,10 +42,7 @@ class SpringbootSignatureClientApplicationTests {
 
         requestHolder.setRequest(requestPayload);
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        String payload = objectMapper.writeValueAsString(requestPayload);
-        String signature = SignatureTool.getInstance().sign(payload);
-        requestHolder.setSignature(signature);
+
 
         Contact result = myFeignClient.modifyContact(requestHolder);
         log.info("get result[{}]", result);
