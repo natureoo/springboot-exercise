@@ -1,7 +1,7 @@
 package demo.nature.springbootsignatureserver.ctrl;
 
 import demo.nature.data.request.Contact;
-import demo.nature.data.request.RequestHolder;
+import demo.nature.data.request.RequestPayload;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,9 +20,9 @@ public class TestController {
 
 
     @PostMapping(value = "contact")
-    public Contact modifyContact(@RequestBody RequestHolder<Contact> requestContact){
+    public Contact modifyContact(@RequestBody RequestPayload<Contact> requestContact){
         log.info("requestContact [{}]", requestContact);
-        Contact contact = requestContact.getRequest().getData();
+        Contact contact = requestContact.getData();
         log.info("contact [{}]", contact);
         return contact;
     }

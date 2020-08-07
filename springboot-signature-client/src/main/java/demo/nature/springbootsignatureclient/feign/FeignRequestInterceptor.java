@@ -2,6 +2,7 @@ package demo.nature.springbootsignatureclient.feign;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import demo.nature.data.request.RequestHolder;
+import demo.nature.data.request.RequestPayload;
 import demo.nature.util.SignatureTool;
 import feign.Request;
 import feign.RequestInterceptor;
@@ -23,15 +24,17 @@ import java.security.cert.CertificateException;
 @Slf4j
 public class FeignRequestInterceptor implements RequestInterceptor {
 
-    ObjectMapper objectMapper = new ObjectMapper();
+    private ObjectMapper objectMapper = new ObjectMapper();
     @Override
     public void apply(RequestTemplate requestTemplate) {
         log.info("RequestInterceptor method [{}]", requestTemplate.method());
         final Request.Body body = requestTemplate.requestBody();
         try {
-            RequestHolder requestHolder = objectMapper.readValue(body.asBytes(), RequestHolder.class);
-            String payload = objectMapper.writeValueAsString(requestHolder.getRequest());
+            RequestPayload requestPayload = objectMapper.readValue(body.asBytes(), RequestPayload.class);
+            String payload = objectMapper.writeValueAsString(requestPayload);
             String signature = SignatureTool.getInstance().sign(payload);
+            RequestHolder requestHolder = new RequestHolder();
+            requestHolder.setRequest(requestPayload);
             requestHolder.setSignature(signature);
             log.info("RequestInterceptor body [{}]", requestHolder);
 

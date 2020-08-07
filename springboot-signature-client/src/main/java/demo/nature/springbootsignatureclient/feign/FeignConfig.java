@@ -32,6 +32,7 @@ public class FeignConfig {
                 .decoder(new JacksonDecoder())
                 .logLevel(feignLoggerLevel())
                 .contract(new SpringMvcContract())
+//                .options(new Request.Options(10000, 20000))
                 .requestInterceptor(feignRequestInterceptor)
                 .target(MyFeignClient.class, "http://127.0.0.1:8085");
     }

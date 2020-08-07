@@ -65,7 +65,8 @@ public class RequestAdvice extends RequestBodyAdviceAdapter {
         }
         log.info("signature verify flags[{}]", flags);
 
-        InputStream rawInputStream = new ByteArrayInputStream(body);
+        byte[] bytes = objectMapper.writeValueAsBytes(request);
+        InputStream rawInputStream = new ByteArrayInputStream(bytes);
         return new HttpInputMessage() {
             @Override
             public HttpHeaders getHeaders() {
@@ -77,13 +78,11 @@ public class RequestAdvice extends RequestBodyAdviceAdapter {
                 return rawInputStream;
             }
         };
-//        return inputMessage;
     }
 
     @Override
     public Object afterBodyRead(Object body, HttpInputMessage inputMessage, MethodParameter parameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
         log.info("afterBodyRead body [{}]", body);
-        RequestHolder requestHolder = (RequestHolder)body;
         return body;
     }
 }

@@ -1,9 +1,20 @@
 feign:
+  hystrix:
+    enabled: true
   client:
     config:
       default:
-        connectTimeout: 5000
-        readTimeout: 5000
+        connect-timeout: 4000
+        read-timeout: 5000
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            # must be greater than connect-timeout + read-timeout
+            timeoutInMilliseconds: 10000
 
 myfeignclient:
   ribbon:
@@ -16,6 +27,8 @@ logging:
         springbootsignatureclient:
           feign:
             MyFeignClient: debug
+
+
 
 
 

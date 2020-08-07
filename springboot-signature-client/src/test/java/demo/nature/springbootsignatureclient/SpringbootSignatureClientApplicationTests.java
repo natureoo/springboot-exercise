@@ -1,5 +1,6 @@
 package demo.nature.springbootsignatureclient;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import demo.nature.data.request.Contact;
 import demo.nature.data.request.RequestHeader;
 import demo.nature.data.request.RequestHolder;
@@ -23,6 +24,9 @@ class SpringbootSignatureClientApplicationTests {
     @Autowired
     private MyFeignClient myFeignClient;
 
+    private ObjectMapper objectMapper = new ObjectMapper();
+
+
 
     @Test
     void testModifyContact() throws IOException, CertificateException, UnrecoverableKeyException, NoSuchAlgorithmException, KeyStoreException, SignatureException, InvalidKeyException {
@@ -44,8 +48,8 @@ class SpringbootSignatureClientApplicationTests {
 
 
 
-        Contact result = myFeignClient.modifyContact(requestHolder);
-        log.info("get result[{}]", result);
+        Contact result = myFeignClient.modifyContact(requestPayload);
+        log.info("get result[{}]", objectMapper.writeValueAsString(result));
     }
 
 }
