@@ -29,6 +29,11 @@ public class FeignRequestInterceptor implements RequestInterceptor {
     public void apply(RequestTemplate requestTemplate) {
         log.info("RequestInterceptor method [{}]", requestTemplate.method());
         final Request.Body body = requestTemplate.requestBody();
+        String bodyStr = body.asString();
+
+        //已经加了signature, 即在重试
+        if(bodyStr.startsWith("{\"request\""))
+            return;
         try {
             RequestPayload requestPayload = objectMapper.readValue(body.asBytes(), RequestPayload.class);
             String payload = objectMapper.writeValueAsString(requestPayload);

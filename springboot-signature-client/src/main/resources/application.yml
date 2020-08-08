@@ -19,6 +19,11 @@ hystrix:
 myfeignclient:
   ribbon:
     listOfServers: http://localhost:8085
+  feign:
+    retry:
+      period: 1000
+      maxPeriod: 3000
+      maxAttempts: 5
 
 logging:
   level:
