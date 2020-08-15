@@ -1,3 +1,6 @@
+#server:
+#  port: 8090
+
 spring:
   # Spring Security 配置项，对应 SecurityProperties 配置类
   security:

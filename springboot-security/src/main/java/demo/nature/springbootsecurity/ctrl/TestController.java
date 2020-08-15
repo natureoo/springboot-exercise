@@ -18,7 +18,7 @@ public class TestController {
         return "示例返回";
     }
 
-    @GetMapping("/home")
+    @RequestMapping("/home")
     public String home() {
         return "我是首页";
     }
